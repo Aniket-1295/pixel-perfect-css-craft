@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for client-side routing
 import './LoanAccounts.css';
 
 const LoanAccounts = () => {
+  const navigate = useNavigate(); // Initialize navigate function for routing
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -149,7 +151,11 @@ const LoanAccounts = () => {
           </div>
 
           <div className="LoanAccounts-actions">
-            <button type="button" className="LoanAccounts-button LoanAccounts-button--secondary">
+            <button 
+              type="button" 
+              className="LoanAccounts-button LoanAccounts-button--secondary"
+              onClick={() => navigate('/loan')} // Navigate to /loan route when Cancel button is clicked
+            >
               Cancel
             </button>
             <button type="submit" className="LoanAccounts-button LoanAccounts-button--primary">
