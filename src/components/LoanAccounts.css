@@ -1,0 +1,205 @@
+.LoanAccounts-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoanAccounts-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.LoanAccounts-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.LoanAccounts-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+}
+
+.LoanAccounts-subtitle {
+  font-size: 1.1rem;
+  color: #718096;
+  margin: 0;
+}
+
+.LoanAccounts-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.LoanAccounts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.LoanAccounts-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.LoanAccounts-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.LoanAccounts-input,
+.LoanAccounts-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+}
+
+.LoanAccounts-input:focus,
+.LoanAccounts-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.LoanAccounts-select {
+  cursor: pointer;
+}
+
+.LoanAccounts-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.LoanAccounts-button {
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.LoanAccounts-button--secondary {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+.LoanAccounts-button--secondary:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+.LoanAccounts-button--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.LoanAccounts-button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .LoanAccounts-container {
+    padding: 1rem;
+  }
+  
+  .LoanAccounts-wrapper {
+    padding: 2rem;
+  }
+  
+  .LoanAccounts-title {
+    font-size: 2rem;
+  }
+  
+  .LoanAccounts-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .LoanAccounts-actions {
+    flex-direction: column;
+  }
+  
+  .LoanAccounts-button {
+    width: 100%;
+  }
+}
+
+/* Mobile Styles (iPhone and Android) */
+@media (max-width: 480px) {
+  .LoanAccounts-container {
+    padding: 0.5rem;
+  }
+  
+  .LoanAccounts-wrapper {
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .LoanAccounts-title {
+    font-size: 1.75rem;
+  }
+  
+  .LoanAccounts-subtitle {
+    font-size: 1rem;
+  }
+  
+  .LoanAccounts-form {
+    gap: 1rem;
+  }
+  
+  .LoanAccounts-input,
+  .LoanAccounts-select {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+  }
+  
+  .LoanAccounts-label {
+    font-size: 0.85rem;
+  }
+  
+  .LoanAccounts-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 320px) {
+  .LoanAccounts-wrapper {
+    padding: 1rem;
+  }
+  
+  .LoanAccounts-title {
+    font-size: 1.5rem;
+  }
+  
+  .LoanAccounts-input,
+  .LoanAccounts-select {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+  }
+}
