@@ -120,6 +120,31 @@
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
+/* Error styling for form validation */
+.LoanAccounts-input--error,
+.LoanAccounts-select--error {
+  border-color: #dc2626; /* Red border for invalid inputs */
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); /* Red glow effect */
+}
+
+/* Error message styling */
+.LoanAccounts-error {
+  display: block; /* Display as block element */
+  margin-top: 4px; /* Space above error message */
+  font-size: 12px; /* Small font size for error text */
+  color: #dc2626; /* Red color for error text */
+  font-weight: 500; /* Medium font weight */
+  line-height: 1.4; /* Better line spacing */
+}
+
+/* Focus state for error inputs to maintain visibility */
+.LoanAccounts-input--error:focus,
+.LoanAccounts-select--error:focus {
+  border-color: #dc2626; /* Keep red border on focus */
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2); /* Stronger red glow on focus */
+  outline: none; /* Remove default outline */
+}
+
 /* Tablet Styles */
 @media (max-width: 768px) {
   .LoanAccounts-container {
