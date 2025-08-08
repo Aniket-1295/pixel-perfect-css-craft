@@ -4,15 +4,18 @@ import './LoanAccounts.css';
 
 const LoanAccounts = () => {
   const navigate = useNavigate(); // Initialize navigate function for routing
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    loanAmount: '',
-    loanPurpose: '',
-    employment: '',
-    income: ''
+  const [formData, setFormData] = useState({ // Modified: updated form fields per new requirements
+    firstName: '', // Unchanged: first name field
+    lastName: '', // Unchanged: last name field
+    email: '', // Unchanged: email field
+    phone: '', // Unchanged: phone field
+    loanAmount: '', // Unchanged: loan amount field
+    loanPurpose: '', // Unchanged: loan purpose field
+    loanStatus: '', // Added: loan status select value
+    installment: '', // Added: number of months for installments
+    emi: '' // Added: monthly EMI amount
+    // employment: '', // Removed: employment field per request
+    // income: '' // Removed: annual income field per request
   });
 
   // State to track validation errors for each field
@@ -20,48 +23,64 @@ const LoanAccounts = () => {
   // State to track if form has been submitted (to show errors)
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Function to validate individual field based on name and value
-  const validateField = (name, value) => {
-    switch (name) {
-      case 'firstName':
-      case 'lastName':
-        // Check if name contains only letters and spaces, minimum 2 characters
+  // Function to validate individual field based on name and value // Modified: updated to support new fields and removed ones
+  const validateField = (name, value) => { // Modified: same signature, updated logic
+    switch (name) { // Modified
+      case 'firstName': // Unchanged
+      case 'lastName': // Unchanged
+        // Check if name contains only letters and spaces, minimum 2 characters // Unchanged
         return value.trim().length >= 2 && /^[a-zA-Z\s]+$/.test(value.trim()) 
-          ? '' : 'Must be at least 2 characters and contain only letters';
+          ? '' : 'Must be at least 2 characters and contain only letters'; // Unchanged
       
-      case 'email':
-        // Validate email format using regex pattern
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(value.trim()) ? '' : 'Please enter a valid email address';
+      case 'email': // Unchanged
+        // Validate email format using regex pattern // Unchanged
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Unchanged
+        return emailRegex.test(value.trim()) ? '' : 'Please enter a valid email address'; // Unchanged
       
-      case 'phone':
-        // Validate phone number (10-15 digits, optional formatting)
-        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-        const cleanPhone = value.replace(/[\s\-\(\)]/g, ''); // Remove formatting characters
+      case 'phone': // Unchanged
+        // Validate phone number (10-15 digits, optional formatting) // Unchanged
+        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/; // Modified: reverted to original reliable pattern (starts with 1-9, allows optional +, up to 16 digits total)
+        const cleanPhone = value.replace(/[\s\-\(\)]/g, ''); // Unchanged
         return cleanPhone.length >= 10 && phoneRegex.test(cleanPhone) 
-          ? '' : 'Please enter a valid phone number (10-15 digits)';
+          ? '' : 'Please enter a valid phone number (10-15 digits)'; // Unchanged
       
-      case 'loanAmount':
-        // Validate loan amount is between $1,000 and $1,000,000
-        const amount = parseFloat(value);
+      case 'loanAmount': // Unchanged
+        // Validate loan amount is between $1,000 and $1,000,000 // Unchanged
+        const amount = parseFloat(value); // Unchanged
         return amount >= 1000 && amount <= 1000000 
-          ? '' : 'Loan amount must be between $1,000 and $1,000,000';
+          ? '' : 'Loan amount must be between $1,000 and $1,000,000'; // Unchanged
       
-      case 'income':
-        // Validate annual income is at least $10,000
-        const income = parseFloat(value);
-        return income >= 10000 
-          ? '' : 'Annual income must be at least $10,000';
+      case 'loanPurpose': // Unchanged
+        // Check if dropdown option is selected // Unchanged
+        return value !== '' ? '' : 'Please select an option'; // Unchanged
       
-      case 'loanPurpose':
-      case 'employment':
-        // Check if dropdown option is selected
-        return value !== '' ? '' : 'Please select an option';
+      case 'loanStatus': // Added: validate new Loan Status field
+        // Ensure user selected a loan status // Added
+        return value !== '' ? '' : 'Please select a loan status'; // Added
       
-      default:
-        return '';
-    }
-  };
+      case 'installment': // Added: validate new Installment field
+        // Require integer months between 1 and 360 // Added
+        const months = Number(value); // Added
+        return Number.isInteger(months) && months >= 1 && months <= 360 
+          ? '' : 'Installment months must be an integer between 1 and 360'; // Added
+      
+      case 'emi': // Added: validate new EMI field
+        // EMI must be > 0 and up to 1,000,000 // Added
+        const emiVal = parseFloat(value); // Added
+        return emiVal > 0 && emiVal <= 1000000 
+          ? '' : 'EMI must be greater than 0 and up to 1,000,000'; // Added
+      
+      // case 'income': // Removed per request
+      //   const income = parseFloat(value); // Removed
+      //   return income >= 10000 ? '' : 'Annual income must be at least $10,000'; // Removed
+      
+      // case 'employment': // Removed per request
+      //   return value !== '' ? '' : 'Please select an option'; // Removed
+      
+      default: // Unchanged
+        return ''; // Unchanged
+    } // Modified: end switch
+  }; // Modified: end validateField
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -208,14 +227,45 @@ const LoanAccounts = () => {
             </div>
           </div>
 
-          <div className="LoanAccounts-row">
-            <div className="LoanAccounts-field">
+          <div className="LoanAccounts-row"> {/* Modified: replaced Employment/Income row with Loan Status and Installment */}
+            <div className="LoanAccounts-field"> {/* Added: Loan Status field container */}
+              <label className="LoanAccounts-label">Loan Status *</label> {/* Added: label for Loan Status */}
+              <select
+                name="loanStatus" // Added: bind to loanStatus state key
+                value={formData.loanStatus} // Added: current value from state
+                onChange={handleInputChange} // Added: update state on change
+                className={`LoanAccounts-select ${errors.loanStatus ? 'LoanAccounts-select--error' : ''}`} // Added: apply error styling when invalid
+                required // Added: make field required
+              >
+                <option value="">Select Status</option> {/* Added: placeholder option */}
+                <option value="approved">Approved</option> {/* Added: status option */}
+                <option value="rejected">Rejected</option> {/* Added: status option */}
+                <option value="pending">Pending</option> {/* Added: status option */}
+              </select>
+              {/* Display error message if validation fails */} {/* Unchanged pattern but for new field */}
+              {errors.loanStatus && <span className="LoanAccounts-error">{errors.loanStatus}</span>} {/* Added: error message bind for Loan Status */}
+            </div>
+            <div className="LoanAccounts-field"> {/* Added: Installment field container */}
+              <label className="LoanAccounts-label">Installment (months) *</label> {/* Added: label for Installment */}
+              <input
+                type="number" // Added: numeric input for months
+                name="installment" // Added: bind to installment state key
+                value={formData.installment} // Added: current value from state
+                onChange={handleInputChange} // Added: update state on change
+                className={`LoanAccounts-input ${errors.installment ? 'LoanAccounts-input--error' : ''}`} // Added: error styling
+                placeholder="e.g., 12" // Added: hint for months
+                required // Added: make field required
+              />
+              {/* Display error message if validation fails */} {/* Unchanged pattern but for new field */}
+              {errors.installment && <span className="LoanAccounts-error">{errors.installment}</span>} {/* Added: error message bind for Installment */}
+            </div>
+            {/* <div className="LoanAccounts-field">
               <label className="LoanAccounts-label">Employment Status *</label>
               <select
                 name="employment"
                 value={formData.employment}
                 onChange={handleInputChange}
-                className={`LoanAccounts-select ${errors.employment ? 'LoanAccounts-select--error' : ''}`} // Add error class if validation fails
+                className={`LoanAccounts-select ${errors.employment ? 'LoanAccounts-select--error' : ''}`}
                 required
               >
                 <option value="">Select Status</option>
@@ -224,22 +274,39 @@ const LoanAccounts = () => {
                 <option value="unemployed">Unemployed</option>
                 <option value="retired">Retired</option>
               </select>
-              {/* Display error message if validation fails */}
               {errors.employment && <span className="LoanAccounts-error">{errors.employment}</span>}
-            </div>
-            <div className="LoanAccounts-field">
+            </div> */} {/* Removed: Employment field per request */}
+            {/* <div className="LoanAccounts-field">
               <label className="LoanAccounts-label">Annual Income *</label>
               <input
                 type="number"
                 name="income"
                 value={formData.income}
                 onChange={handleInputChange}
-                className={`LoanAccounts-input ${errors.income ? 'LoanAccounts-input--error' : ''}`} // Add error class if validation fails
+                className={`LoanAccounts-input ${errors.income ? 'LoanAccounts-input--error' : ''}`}
                 placeholder="$"
                 required
               />
-              {/* Display error message if validation fails */}
               {errors.income && <span className="LoanAccounts-error">{errors.income}</span>}
+            </div> */} {/* Removed: Annual Income field per request */}
+          </div>
+
+          <div className="LoanAccounts-row"> {/* Added: New row for EMI */}
+            <div className="LoanAccounts-field"> {/* Added: EMI field container */}
+              <label className="LoanAccounts-label">EMI (Per Month Amount) *</label> {/* Added: label for EMI */}
+              <input
+                type="number" // Added: numeric input for EMI amount
+                name="emi" // Added: bind to emi state key
+                value={formData.emi} // Added: current value from state
+                onChange={handleInputChange} // Added: update state on change
+                className={`LoanAccounts-input ${errors.emi ? 'LoanAccounts-input--error' : ''}`} // Added: error styling when invalid
+                placeholder="$" // Added: currency placeholder
+                required // Added: make field required
+              />
+              {/* Display error message if validation fails */} {/* Unchanged pattern but for new field */}
+              {errors.emi && <span className="LoanAccounts-error">{errors.emi}</span>} {/* Added: error bind for EMI */}
+            </div>
+            <div className="LoanAccounts-field" aria-hidden="true"> {/* Added: placeholder to keep 2-column layout */}
             </div>
           </div>
 

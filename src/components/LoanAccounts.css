@@ -228,3 +228,7 @@
     font-size: 0.9rem;
   }
 }
+
+/* Modifications Note: Added fields Loan Status, Installment, EMI without needing new CSS rules. */ /* Added: explain no new styles required */
+/* The existing classes (.LoanAccounts-input, .LoanAccounts-select, .LoanAccounts-error, .LoanAccounts-row) already handle styling and responsiveness. */ /* Added: document reuse of styles */
+/* No CSS rules were deleted because removed fields used generic classes shared across inputs/selects. */ /* Added: clarify no deletions in CSS */
