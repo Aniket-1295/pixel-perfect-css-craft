@@ -2,21 +2,33 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for client-side routing
 import './LoanAccounts.css';
 
-const LoanAccounts = () => {
+const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) => { // Modified: added props for modal functionality and initial data
   const navigate = useNavigate(); // Initialize navigate function for routing
-  const [formData, setFormData] = useState({ // Modified: updated form fields per new requirements
-    firstName: '', // Unchanged: first name field
-    lastName: '', // Unchanged: last name field
-    email: '', // Unchanged: email field
-    phone: '', // Unchanged: phone field
-    loanAmount: '', // Unchanged: loan amount field
-    loanPurpose: '', // Unchanged: loan purpose field
-    loanStatus: '', // Added: loan status select value
-    installment: '', // Added: number of months for installments
-    emi: '' // Added: monthly EMI amount
-    // employment: '', // Removed: employment field per request
-    // income: '' // Removed: annual income field per request
-  });
+  const [formData, setFormData] = useState( // Modified: conditional initial state based on props
+    initialData ? { // Added: if initial data provided, use it for pre-filling
+      firstName: initialData.firstName || '', // Added: pre-fill first name from initial data
+      lastName: initialData.lastName || '', // Added: pre-fill last name from initial data
+      email: initialData.email || '', // Added: pre-fill email from initial data
+      phone: initialData.phone || '', // Added: pre-fill phone from initial data
+      loanAmount: initialData.amount ? initialData.amount.toString() : '', // Added: pre-fill loan amount, convert to string
+      loanPurpose: initialData.loanPurpose || '', // Added: pre-fill loan purpose from initial data
+      loanStatus: initialData.loanStatus || '', // Added: pre-fill loan status from initial data
+      installment: initialData.installment || '', // Added: pre-fill installment from initial data
+      emi: initialData.emi || '' // Added: pre-fill EMI from initial data
+    } : { // Added: else use empty form for new applications
+      firstName: '', // Unchanged: first name field
+      lastName: '', // Unchanged: last name field
+      email: '', // Unchanged: email field
+      phone: '', // Unchanged: phone field
+      loanAmount: '', // Unchanged: loan amount field
+      loanPurpose: '', // Unchanged: loan purpose field
+      loanStatus: '', // Added: loan status select value
+      installment: '', // Added: number of months for installments
+      emi: '' // Added: monthly EMI amount
+      // employment: '', // Removed: employment field per request
+      // income: '' // Removed: annual income field per request
+    } // Added: closing brace for else condition
+  ); // Modified: closing for conditional state initialization
 
   // State to track validation errors for each field
   const [errors, setErrors] = useState({});
@@ -314,7 +326,7 @@ const LoanAccounts = () => {
             <button 
               type="button" 
               className="LoanAccounts-button LoanAccounts-button--secondary"
-              onClick={() => navigate('/loan')} // Navigate to /loan route when Cancel button is clicked
+              onClick={isModal ? onCancel : () => navigate('/loan')} // Modified: use onCancel prop in modal mode, otherwise navigate to /loan
             >
               Cancel
             </button>
