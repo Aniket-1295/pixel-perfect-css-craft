@@ -11,6 +11,7 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
       email: initialData.email || '', // Added: pre-fill email from initial data
       phone: initialData.phone || '', // Added: pre-fill phone from initial data
       loanAmount: initialData.amount ? initialData.amount.toString() : '', // Added: pre-fill loan amount, convert to string
+      loanType: initialData.loanType || '', // Added: pre-fill loan type from initial data
       loanPurpose: initialData.loanPurpose || '', // Added: pre-fill loan purpose from initial data
       loanStatus: initialData.loanStatus || '', // Added: pre-fill loan status from initial data
       installment: initialData.installment || '', // Added: pre-fill installment from initial data
@@ -21,6 +22,7 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
       email: '', // Unchanged: email field
       phone: '', // Unchanged: phone field
       loanAmount: '', // Unchanged: loan amount field
+      loanType: '', // Added: loan type select value
       loanPurpose: '', // Unchanged: loan purpose field
       loanStatus: '', // Added: loan status select value
       installment: '', // Added: number of months for installments
@@ -61,6 +63,10 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
         const amount = parseFloat(value); // Unchanged
         return amount >= 1000 && amount <= 1000000 
           ? '' : 'Loan amount must be between $1,000 and $1,000,000'; // Unchanged
+      
+      case 'loanType': // Added: validate new Loan Type field
+        // Ensure user selected a loan type // Added
+        return value !== '' ? '' : 'Please select a loan type'; // Added
       
       case 'loanPurpose': // Unchanged
         // Check if dropdown option is selected // Unchanged
@@ -219,23 +225,23 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
               {errors.loanAmount && <span className="LoanAccounts-error">{errors.loanAmount}</span>}
             </div>
             <div className="LoanAccounts-field">
-              <label className="LoanAccounts-label">Loan Purpose *</label>
+              <label className="LoanAccounts-label">Type of Loan *</label> {/* Modified: changed from Loan Purpose to Type of Loan */}
               <select
-                name="loanPurpose"
-                value={formData.loanPurpose}
+                name="loanType" // Modified: changed from loanPurpose to loanType
+                value={formData.loanType || ''} // Modified: use loanType field with fallback
                 onChange={handleInputChange}
-                className={`LoanAccounts-select ${errors.loanPurpose ? 'LoanAccounts-select--error' : ''}`} // Add error class if validation fails
+                className={`LoanAccounts-select ${errors.loanType ? 'LoanAccounts-select--error' : ''}`} // Modified: check loanType errors
                 required
               >
-                <option value="">Select Purpose</option>
-                <option value="home">Home Purchase</option>
-                <option value="car">Car Purchase</option>
-                <option value="business">Business</option>
-                <option value="personal">Personal</option>
-                <option value="education">Education</option>
+                <option value="">Select Type</option> {/* Modified: changed placeholder text */}
+                <option value="Home">Home</option> {/* Modified: capitalized and simplified options */}
+                <option value="Car">Car</option> {/* Modified: capitalized and simplified options */}
+                <option value="Business">Business</option> {/* Modified: capitalized and simplified options */}
+                <option value="Education">Education</option> {/* Modified: capitalized and simplified options */}
+                <option value="Other">Other</option> {/* Added: new option */}
               </select>
               {/* Display error message if validation fails */}
-              {errors.loanPurpose && <span className="LoanAccounts-error">{errors.loanPurpose}</span>}
+              {errors.loanType && <span className="LoanAccounts-error">{errors.loanType}</span>} {/* Modified: show loanType errors */}
             </div>
           </div>
 

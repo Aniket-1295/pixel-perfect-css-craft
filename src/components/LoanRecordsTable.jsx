@@ -7,9 +7,11 @@ const LoanRecordsTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Added: track modal open/close state
   // State to store selected loan data for modal
   const [selectedLoan, setSelectedLoan] = useState(null); // Added: store clicked row data for pre-filling
+  // State to store loan data with updated types
+  const [loans, setLoans] = useState([]); // Added: state to manage loan data with dropdown changes
 
-  // Sample loan data with structured IDs and realistic amounts
-  const loanData = [ // Added: static sample data for table population
+  // Initial loan data with structured IDs and realistic amounts
+  const initialLoanData = [ // Modified: renamed to indicate initial data
     {
       id: 'LN-001', // Added: structured loan ID format
       firstName: 'John', // Added: sample first name
@@ -68,6 +70,22 @@ const LoanRecordsTable = () => {
     }
   ];
 
+  // Initialize loans state with initial data
+  React.useEffect(() => { // Added: initialize loans state on component mount
+    setLoans(initialLoanData); // Added: set initial loan data to state
+  }, []); // Added: empty dependency array to run once on mount
+
+  // Function to handle loan type change in dropdown
+  const handleLoanTypeChange = (loanId, newType) => { // Added: function to handle dropdown changes
+    setLoans(prevLoans => // Added: update loans state with new loan type
+      prevLoans.map(loan => // Added: iterate through loans to find and update
+        loan.id === loanId // Added: check if this is the loan to update
+          ? { ...loan, loanType: newType, loanPurpose: newType.toLowerCase() } // Added: update both display and form field values
+          : loan // Added: return unchanged loan if not the target
+      )
+    );
+  };
+
   // Function to handle row click and open modal
   const handleRowClick = (loan) => { // Added: function to handle table row clicks
     setSelectedLoan(loan); // Added: store selected loan data for form pre-filling
@@ -101,24 +119,37 @@ const LoanRecordsTable = () => {
           <thead> {/* Added: table header section */}
             <tr> {/* Added: header row */}
               <th>Loan ID</th> {/* Added: loan ID column header */}
-              <th>Customer Name</th> {/* Added: customer name column header */}
               <th>Type of Loan</th> {/* Added: loan type column header */}
               <th>Amount</th> {/* Added: amount column header */}
               <th>Status</th> {/* Added: status column header */}
             </tr>
           </thead>
           <tbody> {/* Added: table body section */}
-            {loanData.map((loan) => ( // Added: iterate through loan data to create rows
+            {loans.map((loan) => ( // Modified: iterate through loans state instead of static data
               <tr 
                 key={loan.id} // Added: unique key for React rendering
                 className="table-row" // Added: CSS class for row styling
-                onClick={() => handleRowClick(loan)} // Added: click handler to open modal with loan data
               >
-                <td className="loan-id">{loan.id}</td> {/* Added: loan ID cell */}
-                <td className="customer-name">{loan.firstName} {loan.lastName}</td> {/* Added: full customer name cell */}
-                <td className="loan-type">{loan.loanType}</td> {/* Added: loan type cell */}
-                <td className="loan-amount">{formatAmount(loan.amount)}</td> {/* Added: formatted amount cell */}
-                <td className="loan-status"> {/* Added: status cell container */}
+                <td className="loan-id" onClick={() => handleRowClick(loan)}>{loan.id}</td> {/* Modified: loan ID cell with click handler */}
+                <td className="loan-type-cell"> {/* Added: loan type cell with dropdown */}
+                  <select 
+                    className="loan-type-dropdown" // Added: CSS class for dropdown styling
+                    value={loan.loanType} // Added: current loan type value
+                    onChange={(e) => { // Added: handle dropdown change
+                      e.stopPropagation(); // Added: prevent row click when dropdown changes
+                      handleLoanTypeChange(loan.id, e.target.value); // Added: update loan type
+                    }}
+                    onClick={(e) => e.stopPropagation()} // Added: prevent row click when clicking dropdown
+                  >
+                    <option value="Home">Home</option> {/* Added: dropdown option */}
+                    <option value="Car">Car</option> {/* Added: dropdown option */}
+                    <option value="Business">Business</option> {/* Added: dropdown option */}
+                    <option value="Education">Education</option> {/* Added: dropdown option */}
+                    <option value="Other">Other</option> {/* Added: dropdown option */}
+                  </select>
+                </td>
+                <td className="loan-amount" onClick={() => handleRowClick(loan)}>{formatAmount(loan.amount)}</td> {/* Modified: formatted amount cell with click handler */}
+                <td className="loan-status" onClick={() => handleRowClick(loan)}> {/* Modified: status cell container with click handler */}
                   <span className={`status-badge status-${loan.status.toLowerCase()}`}> {/* Added: status badge with dynamic class */}
                     {loan.status} {/* Added: status text */}
                   </span>

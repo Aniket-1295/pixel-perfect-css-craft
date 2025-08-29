@@ -77,15 +77,36 @@
   color: #0066cc; /* Added: blue color for loan IDs */
 }
 
-/* Added: Customer name cell styling */
-.customer-name {
-  font-weight: 500; /* Added: medium weight for names */
-  color: #333; /* Added: dark text for names */
+/* Removed: Customer name cell styling - no longer needed */
+
+/* Added: Loan type cell with dropdown styling */
+.loan-type-cell {
+  padding: 8px; /* Modified: reduced padding for dropdown cell */
 }
 
-/* Added: Loan type cell styling */
-.loan-type {
-  color: #555; /* Added: medium gray for loan type */
+/* Added: Loan type dropdown styling */
+.loan-type-dropdown {
+  width: 100%; /* Added: full width dropdown */
+  padding: 8px 12px; /* Added: comfortable padding */
+  border: 1px solid #ddd; /* Added: light border */
+  border-radius: 4px; /* Added: rounded corners */
+  background-color: white; /* Added: white background */
+  color: #333; /* Added: dark text color */
+  font-size: 14px; /* Added: readable font size */
+  cursor: pointer; /* Added: pointer cursor */
+  transition: all 0.2s ease; /* Added: smooth transition */
+  z-index: 10; /* Added: ensure dropdown appears above other content */
+}
+
+.loan-type-dropdown:hover {
+  border-color: #0066cc; /* Added: blue border on hover */
+  background-color: #f8f9fa; /* Added: light background on hover */
+}
+
+.loan-type-dropdown:focus {
+  outline: none; /* Added: remove default outline */
+  border-color: #0066cc; /* Added: blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2); /* Added: blue focus shadow */
 }
 
 /* Added: Loan amount cell styling */
