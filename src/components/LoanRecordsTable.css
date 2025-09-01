@@ -1,50 +1,73 @@
-/* Added: Main container for loan records table component */
-.loan-records-container {
+/* Modified: Main container for loan records table component with className suffix */
+.loan-records-container-Loan-record-app {
   padding: 20px; /* Added: container padding for spacing */
   max-width: 1200px; /* Added: maximum width for large screens */
   margin: 0 auto; /* Added: center container horizontally */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Added: professional font stack */
 }
 
-/* Added: Header section styling */
-.loan-records-header {
+/* Modified: Header section styling with className suffix */
+.loan-records-header-Loan-record-app {
   margin-bottom: 30px; /* Added: space below header */
   text-align: center; /* Added: center align header text */
+  position: relative; /* Added: relative positioning for back button */
 }
 
-/* Added: Main title styling */
-.loan-records-title {
+/* Added: Back button styling */
+.back-button-Loan-record-app {
+  position: absolute; /* Added: absolute positioning */
+  left: 0; /* Added: position at left edge */
+  top: 50%; /* Added: center vertically */
+  transform: translateY(-50%); /* Added: center vertically with transform */
+  background: #667eea; /* Added: primary blue background */
+  color: white; /* Added: white text */
+  border: none; /* Added: no border */
+  padding: 10px 20px; /* Added: button padding */
+  border-radius: 8px; /* Added: rounded corners */
+  cursor: pointer; /* Added: pointer cursor */
+  font-size: 14px; /* Added: button font size */
+  font-weight: 600; /* Added: semi-bold text */
+  transition: all 0.2s ease; /* Added: smooth transition */
+}
+
+.back-button-Loan-record-app:hover {
+  background: #5a67d8; /* Added: darker blue on hover */
+  transform: translateY(-50%) translateX(-2px); /* Added: slight movement on hover */
+}
+
+/* Modified: Main title styling with className suffix */
+.loan-records-title-Loan-record-app {
   font-size: 2.5rem; /* Added: large title font size */
   color: #333; /* Added: dark gray title color */
   margin-bottom: 10px; /* Added: space below title */
   font-weight: 700; /* Added: bold font weight */
 }
 
-/* Added: Subtitle styling */
-.loan-records-subtitle {
+/* Modified: Subtitle styling with className suffix */
+.loan-records-subtitle-Loan-record-app {
   font-size: 1.1rem; /* Added: subtitle font size */
   color: #666; /* Added: medium gray subtitle color */
   margin: 0; /* Added: remove default margin */
 }
 
-/* Added: Responsive table container */
-.table-container {
+/* Modified: Responsive table container with className suffix */
+.table-container-Loan-record-app {
   overflow-x: auto; /* Added: horizontal scroll for mobile */
   border-radius: 8px; /* Added: rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added: subtle shadow */
   background: white; /* Added: white background */
 }
 
-/* Added: Main table styling */
-.loan-records-table {
+/* Modified: Main table styling with className suffix */
+.loan-records-table-Loan-record-app {
   width: 100%; /* Added: full width table */
   border-collapse: collapse; /* Added: remove border spacing */
   font-size: 14px; /* Added: readable font size */
   background: white; /* Added: white table background */
 }
 
-/* Added: Table header styling */
-.loan-records-table th {
+/* Modified: Table header styling with className suffix */
+.loan-records-table-Loan-record-app th {
   background: #f8f9fa; /* Added: light gray header background */
   color: #333; /* Added: dark header text */
   font-weight: 600; /* Added: semi-bold header text */
@@ -54,105 +77,113 @@
   white-space: nowrap; /* Added: prevent header text wrapping */
 }
 
-/* Added: Table cell styling */
-.loan-records-table td {
+/* Modified: Table cell styling with className suffix */
+.loan-records-table-Loan-record-app td {
   padding: 15px 12px; /* Added: cell padding for content */
   border-bottom: 1px solid #dee2e6; /* Added: cell bottom border */
   vertical-align: middle; /* Added: center content vertically */
 }
 
-/* Added: Table row hover effect */
-.table-row {
+/* Modified: Table row hover effect with className suffix */
+.table-row-Loan-record-app {
   cursor: pointer; /* Added: pointer cursor on hover */
   transition: background-color 0.2s ease; /* Added: smooth background transition */
 }
 
-.table-row:hover {
+.table-row-Loan-record-app:hover {
   background-color: #f8f9fa; /* Added: light background on hover */
 }
 
-/* Added: Loan ID cell styling */
-.loan-id {
+/* Modified: Loan ID cell styling with className suffix */
+.loan-id-Loan-record-app {
   font-weight: 600; /* Added: bold loan ID text */
   color: #0066cc; /* Added: blue color for loan IDs */
 }
 
-/* Removed: Customer name cell styling - no longer needed */
-
-/* Added: Loan type cell with dropdown styling */
-.loan-type-cell {
-  padding: 8px; /* Modified: reduced padding for dropdown cell */
+/* Modified: Loan type cell styling with className suffix - no dropdown */
+.loan-type-cell-Loan-record-app {
+  font-weight: 500; /* Added: medium font weight for loan type */
+  color: #4a5568; /* Added: dark gray color */
 }
 
-/* Added: Loan type dropdown styling */
-.loan-type-dropdown {
-  width: 100%; /* Added: full width dropdown */
-  padding: 8px 12px; /* Added: comfortable padding */
-  border: 1px solid #ddd; /* Added: light border */
-  border-radius: 4px; /* Added: rounded corners */
-  background-color: white; /* Added: white background */
-  color: #333; /* Added: dark text color */
-  font-size: 14px; /* Added: readable font size */
-  cursor: pointer; /* Added: pointer cursor */
-  transition: all 0.2s ease; /* Added: smooth transition */
-  z-index: 10; /* Added: ensure dropdown appears above other content */
-}
+/* Deleted: Loan type dropdown styling - dropdown removed */
+/* .loan-type-dropdown { // Deleted: dropdown styling no longer needed
+  width: 100%; // Deleted: full width dropdown
+  padding: 8px 12px; // Deleted: comfortable padding
+  border: 1px solid #ddd; // Deleted: light border
+  border-radius: 4px; // Deleted: rounded corners
+  background-color: white; // Deleted: white background
+  color: #333; // Deleted: dark text color
+  font-size: 14px; // Deleted: readable font size
+  cursor: pointer; // Deleted: pointer cursor
+  transition: all 0.2s ease; // Deleted: smooth transition
+  z-index: 10; // Deleted: z-index for dropdown
+} // Deleted: entire dropdown styling */
 
-.loan-type-dropdown:hover {
-  border-color: #0066cc; /* Added: blue border on hover */
-  background-color: #f8f9fa; /* Added: light background on hover */
-}
+/* Deleted: Dropdown hover and focus states - no longer needed */
+/* .loan-type-dropdown:hover { // Deleted: hover styling
+  border-color: #0066cc; // Deleted: blue border on hover
+  background-color: #f8f9fa; // Deleted: light background on hover
+} // Deleted: hover styling */
 
-.loan-type-dropdown:focus {
-  outline: none; /* Added: remove default outline */
-  border-color: #0066cc; /* Added: blue border on focus */
-  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2); /* Added: blue focus shadow */
-}
+/* .loan-type-dropdown:focus { // Deleted: focus styling
+  outline: none; // Deleted: remove default outline
+  border-color: #0066cc; // Deleted: blue border on focus
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2); // Deleted: blue focus shadow
+} // Deleted: focus styling */
 
-/* Added: Loan amount cell styling */
-.loan-amount {
+/* Modified: Loan amount cell styling with className suffix */
+.loan-amount-Loan-record-app {
   font-weight: 600; /* Added: bold for amounts */
   color: #2d5a27; /* Added: green color for money amounts */
 }
 
-/* Added: Status badge container */
-.loan-status {
-  text-align: center; /* Added: center align status badges */
+/* Added: Loan tenure cell styling */
+.loan-tenure-Loan-record-app {
+  font-weight: 500; /* Added: medium font weight for tenure */
+  color: #4a5568; /* Added: dark gray color */
 }
 
-/* Added: Base status badge styling */
-.status-badge {
-  padding: 6px 12px; /* Added: badge padding */
-  border-radius: 20px; /* Added: rounded badge shape */
-  font-size: 12px; /* Added: small badge font */
-  font-weight: 600; /* Added: bold badge text */
-  text-transform: uppercase; /* Added: uppercase status text */
-  letter-spacing: 0.5px; /* Added: spaced out letters */
+/* Added: Loan action cell styling */
+.loan-action-Loan-record-app {
+  color: #718096; /* Added: lighter gray for empty action column */
+  font-style: italic; /* Added: italic text for empty state */
 }
 
-/* Added: Approved status styling */
-.status-approved {
-  background-color: #d4edda; /* Added: light green background */
-  color: #155724; /* Added: dark green text */
-  border: 1px solid #c3e6cb; /* Added: green border */
-}
+/* Deleted: Status badge styling - status column removed */
+/* .loan-status { // Deleted: status badge container - no longer needed
+  text-align: center; // Deleted: center align status badges
+} // Deleted: status container */
 
-/* Added: Pending status styling */
-.status-pending {
-  background-color: #fff3cd; /* Added: light yellow background */
-  color: #856404; /* Added: dark yellow text */
-  border: 1px solid #ffeaa7; /* Added: yellow border */
-}
+/* .status-badge { // Deleted: base status badge styling
+  padding: 6px 12px; // Deleted: badge padding
+  border-radius: 20px; // Deleted: rounded badge shape
+  font-size: 12px; // Deleted: small badge font
+  font-weight: 600; // Deleted: bold badge text
+  text-transform: uppercase; // Deleted: uppercase status text
+  letter-spacing: 0.5px; // Deleted: spaced out letters
+} // Deleted: status badge styling */
 
-/* Added: Rejected status styling */
-.status-rejected {
-  background-color: #f8d7da; /* Added: light red background */
-  color: #721c24; /* Added: dark red text */
-  border: 1px solid #f5c6cb; /* Added: red border */
-}
+/* .status-approved { // Deleted: approved status styling
+  background-color: #d4edda; // Deleted: light green background
+  color: #155724; // Deleted: dark green text
+  border: 1px solid #c3e6cb; // Deleted: green border
+} // Deleted: approved styling */
 
-/* Added: Modal overlay styling */
-.modal-overlay {
+/* .status-pending { // Deleted: pending status styling
+  background-color: #fff3cd; // Deleted: light yellow background
+  color: #856404; // Deleted: dark yellow text
+  border: 1px solid #ffeaa7; // Deleted: yellow border
+} // Deleted: pending styling */
+
+/* .status-rejected { // Deleted: rejected status styling
+  background-color: #f8d7da; // Deleted: light red background
+  color: #721c24; // Deleted: dark red text
+  border: 1px solid #f5c6cb; // Deleted: red border
+} // Deleted: rejected styling */
+
+/* Modified: Modal overlay styling with className suffix */
+.modal-overlay-Loan-record-app {
   position: fixed; /* Added: fixed positioning for overlay */
   top: 0; /* Added: cover from top */
   left: 0; /* Added: cover from left */
@@ -166,8 +197,8 @@
   padding: 20px; /* Added: padding for mobile spacing */
 }
 
-/* Added: Modal content container */
-.modal-content {
+/* Modified: Modal content container with className suffix */
+.modal-content-Loan-record-app {
   background: white; /* Added: white modal background */
   border-radius: 8px; /* Added: rounded modal corners */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Added: modal shadow */
@@ -177,8 +208,8 @@
   overflow-y: auto; /* Added: scroll if content overflows */
 }
 
-/* Added: Modal header styling */
-.modal-header {
+/* Modified: Modal header styling with className suffix */
+.modal-header-Loan-record-app {
   display: flex; /* Added: flex layout for header */
   justify-content: space-between; /* Added: space between title and close button */
   align-items: center; /* Added: center align items vertically */
@@ -187,16 +218,16 @@
   background: #f8f9fa; /* Added: light header background */
 }
 
-/* Added: Modal title styling */
-.modal-header h2 {
+/* Modified: Modal title styling with className suffix */
+.modal-header-Loan-record-app h2 {
   margin: 0; /* Added: remove default margin */
   color: #333; /* Added: dark title color */
   font-size: 1.5rem; /* Added: modal title size */
   font-weight: 600; /* Added: semi-bold title */
 }
 
-/* Added: Modal close button styling */
-.modal-close-button {
+/* Modified: Modal close button styling with className suffix */
+.modal-close-button-Loan-record-app {
   background: none; /* Added: no button background */
   border: none; /* Added: no button border */
   font-size: 24px; /* Added: large close icon */
@@ -207,87 +238,95 @@
   transition: all 0.2s ease; /* Added: smooth hover transition */
 }
 
-.modal-close-button:hover {
+.modal-close-button-Loan-record-app:hover {
   background-color: #f1f1f1; /* Added: light background on hover */
   color: #333; /* Added: darker color on hover */
 }
 
-/* Added: Modal body styling */
-.modal-body {
+/* Modified: Modal body styling with className suffix */
+.modal-body-Loan-record-app {
   padding: 0; /* Added: no padding, let form handle its own */
 }
 
-/* Added: Responsive design for tablets */
+/* Modified: Responsive design for tablets with className suffix */
 @media (max-width: 768px) {
-  .loan-records-container {
+  .loan-records-container-Loan-record-app {
     padding: 15px; /* Modified: reduced padding on tablets */
   }
   
-  .loan-records-title {
+  .loan-records-title-Loan-record-app {
     font-size: 2rem; /* Modified: smaller title on tablets */
   }
   
-  .loan-records-table {
+  .loan-records-table-Loan-record-app {
     font-size: 13px; /* Modified: smaller font on tablets */
   }
   
-  .loan-records-table th,
-  .loan-records-table td {
+  .loan-records-table-Loan-record-app th,
+  .loan-records-table-Loan-record-app td {
     padding: 12px 8px; /* Modified: reduced cell padding on tablets */
   }
   
-  .modal-content {
+  .modal-content-Loan-record-app {
     margin: 10px; /* Added: modal margin on tablets */
     max-height: 95vh; /* Modified: more screen height usage on tablets */
   }
   
-  .modal-header {
+  .modal-header-Loan-record-app {
     padding: 15px 20px; /* Modified: reduced header padding on tablets */
+  }
+  
+  .back-button-Loan-record-app {
+    position: static; /* Modified: static positioning on tablet */
+    transform: none; /* Modified: remove transform on tablet */
+    margin-bottom: 15px; /* Added: margin below back button on tablet */
   }
 }
 
-/* Added: Responsive design for mobile phones */
+/* Modified: Responsive design for mobile phones with className suffix */
 @media (max-width: 480px) {
-  .loan-records-container {
+  .loan-records-container-Loan-record-app {
     padding: 10px; /* Modified: minimal padding on mobile */
   }
   
-  .loan-records-title {
+  .loan-records-title-Loan-record-app {
     font-size: 1.75rem; /* Modified: smaller mobile title */
   }
   
-  .loan-records-subtitle {
+  .loan-records-subtitle-Loan-record-app {
     font-size: 1rem; /* Modified: smaller mobile subtitle */
   }
   
-  .loan-records-table {
+  .loan-records-table-Loan-record-app {
     font-size: 12px; /* Modified: small mobile font */
   }
   
-  .loan-records-table th,
-  .loan-records-table td {
+  .loan-records-table-Loan-record-app th,
+  .loan-records-table-Loan-record-app td {
     padding: 10px 6px; /* Modified: minimal cell padding on mobile */
   }
   
-  .status-badge {
-    padding: 4px 8px; /* Modified: smaller badges on mobile */
-    font-size: 11px; /* Modified: smaller badge font on mobile */
-  }
-  
-  .modal-overlay {
+  .modal-overlay-Loan-record-app {
     padding: 10px; /* Modified: minimal overlay padding on mobile */
   }
   
-  .modal-content {
+  .modal-content-Loan-record-app {
     margin: 5px; /* Modified: minimal modal margin on mobile */
     max-height: 98vh; /* Modified: almost full height on mobile */
   }
   
-  .modal-header {
+  .modal-header-Loan-record-app {
     padding: 12px 15px; /* Modified: compact header padding on mobile */
   }
   
-  .modal-header h2 {
+  .modal-header-Loan-record-app h2 {
     font-size: 1.25rem; /* Modified: smaller modal title on mobile */
+  }
+  
+  .back-button-Loan-record-app {
+    position: static; /* Modified: static positioning on mobile */
+    transform: none; /* Modified: remove transform on mobile */
+    margin-bottom: 10px; /* Added: margin below back button on mobile */
+    width: 100%; /* Added: full width button on mobile */
   }
 }

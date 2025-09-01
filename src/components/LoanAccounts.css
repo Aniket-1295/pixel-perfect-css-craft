@@ -79,7 +79,8 @@
   cursor: pointer;
 }
 
-.LoanAccounts-actions {
+/* Modified: Actions container with className suffix */
+.LoanAccounts-actions-Loan-record-app {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
@@ -88,7 +89,8 @@
   border-top: 1px solid #e2e8f0;
 }
 
-.LoanAccounts-button {
+/* Modified: Base button styling with className suffix */
+.LoanAccounts-button-Loan-record-app {
   padding: 0.75rem 2rem;
   border-radius: 8px;
   font-size: 1rem;
@@ -98,26 +100,53 @@
   border: none;
 }
 
-.LoanAccounts-button--secondary {
+/* Modified: Secondary button styling (for general use) */
+.LoanAccounts-button--secondary-Loan-record-app {
   background: #f7fafc;
   color: #4a5568;
   border: 2px solid #e2e8f0;
 }
 
-.LoanAccounts-button--secondary:hover {
+.LoanAccounts-button--secondary-Loan-record-app:hover {
   background: #edf2f7;
   border-color: #cbd5e0;
 }
 
-.LoanAccounts-button--primary {
+/* Added: Reject button styling with light red hover */
+.LoanAccounts-button--reject-Loan-record-app {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+.LoanAccounts-button--reject-Loan-record-app:hover {
+  background: #fed7d7; /* Added: light red background on hover */
+  border-color: #feb2b2; /* Added: light red border on hover */
+  color: #c53030; /* Added: darker red text on hover */
+}
+
+/* Modified: Primary button styling (now for Accept button) */
+.LoanAccounts-button--primary-Loan-record-app {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #ffffff;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-.LoanAccounts-button--primary:hover {
+.LoanAccounts-button--primary-Loan-record-app:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Added: Accept button styling */
+.LoanAccounts-button--accept-Loan-record-app {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); /* Added: green gradient */
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3); /* Added: green shadow */
+}
+
+.LoanAccounts-button--accept-Loan-record-app:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4); /* Added: enhanced green shadow on hover */
 }
 
 /* Error styling for form validation */
@@ -229,6 +258,185 @@
   }
 }
 
-/* Modifications Note: Added fields Loan Status, Installment, EMI without needing new CSS rules. */ /* Added: explain no new styles required */
-/* The existing classes (.LoanAccounts-input, .LoanAccounts-select, .LoanAccounts-error, .LoanAccounts-row) already handle styling and responsiveness. */ /* Added: document reuse of styles */
-/* No CSS rules were deleted because removed fields used generic classes shared across inputs/selects. */ /* Added: clarify no deletions in CSS */
+/* Added: Overlay styling for dialogs and modals */
+.LoanAccounts-overlay-Loan-record-app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Added: Dialog container styling */
+.LoanAccounts-dialog-Loan-record-app {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Added: Dialog header styling */
+.LoanAccounts-dialog-header-Loan-record-app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8f9fa;
+}
+
+/* Added: Dialog close button styling */
+.LoanAccounts-close-button-Loan-record-app {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.LoanAccounts-close-button-Loan-record-app:hover {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+/* Added: Dialog content styling */
+.LoanAccounts-dialog-content-Loan-record-app {
+  padding: 25px;
+}
+
+/* Added: Dialog actions styling */
+.LoanAccounts-dialog-actions-Loan-record-app {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Added: Document upload modal styling */
+.document-upload-modal-Loan-record-app {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Added: Document upload header styling */
+.document-upload-header-Loan-record-app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8f9fa;
+}
+
+/* Added: Document upload content styling */
+.document-upload-content-Loan-record-app {
+  padding: 25px;
+}
+
+/* Added: Drag and drop area styling */
+.drag-drop-area-Loan-record-app {
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #f7fafc;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+}
+
+.drag-drop-area-Loan-record-app:hover {
+  border-color: #667eea;
+  background: #edf2f7;
+}
+
+/* Added: Browse button styling */
+.browse-button-Loan-record-app {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.browse-button-Loan-record-app:hover {
+  background: #5a67d8;
+  transform: translateY(-1px);
+}
+
+/* Added: Uploaded files container styling */
+.uploaded-files-Loan-record-app {
+  margin-bottom: 20px;
+}
+
+.uploaded-files-Loan-record-app h4 {
+  margin-bottom: 10px;
+  color: #2d3748;
+}
+
+.uploaded-files-Loan-record-app ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Added: File item styling */
+.file-item-Loan-record-app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #f7fafc;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+/* Added: Remove file button styling */
+.remove-file-button-Loan-record-app {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.remove-file-button-Loan-record-app:hover {
+  background: #c53030;
+}
+
+/* Added: Document upload actions styling */
+.document-upload-actions-Loan-record-app {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Modifications Note: Added new dialog and document upload styling with className suffix. */ /* Added: explain new additions */
+/* Updated button styling to include reject (light red hover) and accept (green) variants. */ /* Added: document button changes */
+/* All new styles follow responsive design patterns and maintain consistency with existing design. */ /* Added: clarify responsive design */

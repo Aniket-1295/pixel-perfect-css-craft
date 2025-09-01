@@ -36,6 +36,9 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
   const [errors, setErrors] = useState({});
   // State to track if form has been submitted (to show errors)
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showRejectDialog, setShowRejectDialog] = useState(false); // Added: track reject confirmation dialog state
+  const [showDocumentUpload, setShowDocumentUpload] = useState(false); // Added: track document upload modal state
+  const [uploadedFiles, setUploadedFiles] = useState([]); // Added: track uploaded files
 
   // Function to validate individual field based on name and value // Modified: updated to support new fields and removed ones
   const validateField = (name, value) => { // Modified: same signature, updated logic
@@ -140,6 +143,39 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
     } else {
       console.log('Form has validation errors:', newErrors);
     }
+  };
+
+  // Modified: Handle reject button click (renamed from cancel)
+  const handleReject = () => { // Modified: renamed from handleCancel to handleReject
+    setShowRejectDialog(true); // Modified: show reject confirmation dialog
+  };
+
+  // Added: Handle accept button click (renamed from submit)
+  const handleAccept = () => { // Added: function to handle accept button
+    setShowDocumentUpload(true); // Added: show document upload modal
+  };
+
+  // Added: Handle file upload
+  const handleFileUpload = (event) => { // Added: function to handle file selection
+    const files = Array.from(event.target.files); // Added: convert FileList to array
+    setUploadedFiles(prevFiles => [...prevFiles, ...files]); // Added: add new files to existing files
+  };
+
+  // Added: Handle file drop
+  const handleFileDrop = (event) => { // Added: function to handle drag and drop
+    event.preventDefault(); // Added: prevent default browser behavior
+    const files = Array.from(event.dataTransfer.files); // Added: get dropped files
+    setUploadedFiles(prevFiles => [...prevFiles, ...files]); // Added: add dropped files to existing files
+  };
+
+  // Added: Handle drag over
+  const handleDragOver = (event) => { // Added: function to handle drag over event
+    event.preventDefault(); // Added: prevent default to allow drop
+  };
+
+  // Added: Remove uploaded file
+  const removeFile = (index) => { // Added: function to remove file from upload list
+    setUploadedFiles(prevFiles => prevFiles.filter((_, i) => i !== index)); // Added: remove file at specific index
   };
 
   return (
@@ -328,19 +364,149 @@ const LoanAccounts = ({ initialData = null, isModal = false, onCancel = null }) 
             </div>
           </div>
 
-          <div className="LoanAccounts-actions">
-            <button 
-              type="button" 
-              className="LoanAccounts-button LoanAccounts-button--secondary"
-              onClick={isModal ? onCancel : () => navigate('/loan')} // Modified: use onCancel prop in modal mode, otherwise navigate to /loan
+          <div className="LoanAccounts-actions-Loan-record-app"> {/* Modified: updated className with suffix */}
+            <button
+              type="button"
+              className="LoanAccounts-button-Loan-record-app LoanAccounts-button--reject-Loan-record-app" // Modified: updated className for reject button
+              onClick={handleReject} // Modified: changed from handleCancel to handleReject
             >
-              Cancel
+              Reject {/* Modified: changed text from Cancel to Reject */}
             </button>
-            <button type="submit" className="LoanAccounts-button LoanAccounts-button--primary">
-              Submit Application
+            <button
+              type="button" // Modified: changed from submit to button to prevent form submission
+              className="LoanAccounts-button-Loan-record-app LoanAccounts-button--accept-Loan-record-app" // Modified: updated className for accept button
+              onClick={handleAccept} // Modified: changed to handleAccept function
+            >
+              Accept {/* Modified: changed text from Submit Application to Accept */}
             </button>
           </div>
         </form>
+
+        {/* Modified: Reject Confirmation Dialog */}
+        {showRejectDialog && ( // Modified: changed from showConfirmDialog to showRejectDialog
+          <div className="LoanAccounts-overlay-Loan-record-app"> {/* Modified: updated className with suffix */}
+            <div className="LoanAccounts-dialog-Loan-record-app"> {/* Modified: updated className with suffix */}
+              <div className="LoanAccounts-dialog-header-Loan-record-app"> {/* Modified: updated className with suffix */}
+                <h3>Do you really want to go back?</h3> {/* Modified: changed dialog title */}
+                <button 
+                  className="LoanAccounts-close-button-Loan-record-app" // Modified: updated className with suffix
+                  onClick={() => setShowRejectDialog(false)} // Modified: close reject dialog
+                  aria-label="Close dialog" // Added: accessibility label
+                >
+                  ×
+                </button>
+              </div>
+              <div className="LoanAccounts-dialog-content-Loan-record-app"> {/* Modified: updated className with suffix */}
+                <div className="LoanAccounts-dialog-actions-Loan-record-app"> {/* Modified: updated className with suffix */}
+                  <button
+                    type="button"
+                    className="LoanAccounts-button-Loan-record-app LoanAccounts-button--secondary-Loan-record-app" // Modified: updated className with suffix
+                    onClick={() => setShowRejectDialog(false)} // Modified: stay on form
+                  >
+                    Stay on Form {/* Added: stay on form button text */}
+                  </button>
+                  <button
+                    type="button"
+                    className="LoanAccounts-button-Loan-record-app LoanAccounts-button--primary-Loan-record-app" // Modified: updated className with suffix
+                    onClick={() => {
+                      setShowRejectDialog(false); // Modified: close reject dialog
+                      if (onCancel) onCancel(); // Added: execute cancel if provided
+                    }}
+                  >
+                    Yes, Go Back {/* Modified: changed button text */}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Added: Document Upload Modal */}
+        {showDocumentUpload && ( // Added: conditional rendering of document upload modal
+          <div className="LoanAccounts-overlay-Loan-record-app"> {/* Added: overlay for document upload */}
+            <div className="document-upload-modal-Loan-record-app"> {/* Added: document upload modal container */}
+              <div className="document-upload-header-Loan-record-app"> {/* Added: modal header */}
+                <h3>Upload Documents</h3> {/* Added: modal title */}
+                <button 
+                  className="LoanAccounts-close-button-Loan-record-app" // Added: close button styling
+                  onClick={() => setShowDocumentUpload(false)} // Added: close upload modal
+                  aria-label="Close upload modal" // Added: accessibility label
+                >
+                  ×
+                </button>
+              </div>
+              <div className="document-upload-content-Loan-record-app"> {/* Added: upload content area */}
+                <div 
+                  className="drag-drop-area-Loan-record-app" // Added: drag and drop area
+                  onDrop={handleFileDrop} // Added: handle file drop
+                  onDragOver={handleDragOver} // Added: handle drag over
+                >
+                  <p>Drag & drop multiple documents here</p> {/* Added: drag drop instruction */}
+                  <p>or</p> {/* Added: separator text */}
+                  <input
+                    type="file"
+                    id="file-upload-Loan-record-app" // Added: file input ID
+                    multiple // Added: allow multiple file selection
+                    onChange={handleFileUpload} // Added: handle file selection
+                    style={{ display: 'none' }} // Added: hide default file input
+                  />
+                  <label 
+                    htmlFor="file-upload-Loan-record-app" // Added: label for file input
+                    className="browse-button-Loan-record-app" // Added: browse button styling
+                  >
+                    Browse Files {/* Added: browse button text */}
+                  </label>
+                </div>
+                
+                {/* Added: Display uploaded files */}
+                {uploadedFiles.length > 0 && ( // Added: conditional rendering of file list
+                  <div className="uploaded-files-Loan-record-app"> {/* Added: uploaded files container */}
+                    <h4>Uploaded Files:</h4> {/* Added: files section title */}
+                    <ul> {/* Added: files list */}
+                      {uploadedFiles.map((file, index) => ( // Added: iterate through uploaded files
+                        <li key={index} className="file-item-Loan-record-app"> {/* Added: file list item */}
+                          <span>{file.name}</span> {/* Added: display file name */}
+                          <button 
+                            className="remove-file-button-Loan-record-app" // Added: remove file button
+                            onClick={() => removeFile(index)} // Added: remove file on click
+                          >
+                            Remove {/* Added: remove button text */}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                <div className="document-upload-actions-Loan-record-app"> {/* Added: upload modal actions */}
+                  <button
+                    type="button"
+                    className="LoanAccounts-button-Loan-record-app LoanAccounts-button--secondary-Loan-record-app" // Added: cancel button styling
+                    onClick={() => {
+                      setShowDocumentUpload(false); // Added: close upload modal
+                      setUploadedFiles([]); // Added: clear uploaded files
+                    }}
+                  >
+                    Cancel {/* Added: cancel upload button */}
+                  </button>
+                  <button
+                    type="button"
+                    className="LoanAccounts-button-Loan-record-app LoanAccounts-button--primary-Loan-record-app" // Added: submit button styling
+                    onClick={() => {
+                      // Added: handle document submission
+                      console.log('Documents submitted:', uploadedFiles); // Added: log submitted files
+                      setShowDocumentUpload(false); // Added: close upload modal
+                      setUploadedFiles([]); // Added: clear uploaded files
+                      if (onCancel) onCancel(); // Added: close parent modal if in modal mode
+                    }}
+                  >
+                    Submit {/* Added: submit documents button */}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
